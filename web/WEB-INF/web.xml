@@ -8,6 +8,12 @@
      <servlet>
 	<servlet-name>main</servlet-name>
 	<servlet-class>controller.FrontController</servlet-class>
+        
+        <init-param>
+        <param-name>defaultAction</param-name>
+        <param-value>view_books</param-value>
+        </init-param>
+        
   </servlet>
 
   <servlet-mapping>
