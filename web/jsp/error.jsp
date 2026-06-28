@@ -1,3 +1,6 @@
+<%@ page isErrorPage="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,12 +9,10 @@
         <title>Error Page</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
+
     <body>
-        <%@ page isErrorPage="true" %>
-        <%
-            String msg = (String) request.getAttribute("result");
-            out.print("<h3>" + msg + "</h3>");
-            session.invalidate();
-        %>
+        <img src="images/books.jpg" alt="Books" class="banner">
+
+        <h3>${result}</h3>
     </body>
 </html>

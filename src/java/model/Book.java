@@ -2,26 +2,36 @@ package model;
 
 import java.text.DecimalFormat;
 import java.io.*;
-
+import javax.persistence.*;
 /**
  * The {@code Book} class represents a book with an ISBN, title, author, and price. It implements the {@code Serializable} interface to allow its instances to
  * be serialized.
+ * 
+ * @author Ava Nematpour
  */
+
+@Entity
+@Table(name = "TBOOKS", schema = "USER1")
 public class Book implements Serializable {
 
+    @Id
+    @Column(name = "ISBN")
     private String isbn = "";
+
+    @Column(name = "TITLE")
     private String title = "";
+
+    @Column(name = "AUTHOR")
     private String author = "";
+
+    @Column(name = "PRICE")
     private double price = 0.00;
 
     /**
-     * Constructs a new {@code Book} with the specified ISBN, title, author, and price.
-     *
-     * @param isbn the ISBN of the book
-     * @param title the title of the book
-     * @param author the author of the book
-     * @param price the price of the book
-     */
+    * Default constructor required by JPA.
+    */
+    public Book() {
+    }
     public Book(String isbn, String title, String author, double price) {
         this.isbn = isbn;
         this.author = author;

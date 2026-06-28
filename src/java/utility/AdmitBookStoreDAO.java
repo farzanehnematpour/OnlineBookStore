@@ -3,54 +3,31 @@ package utility;
 import java.util.*;
 import java.sql.*;
 import model.Book;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 
 /**
  * The {@code AdmitBookStoreDAO} class provides data access methods for retrieving book information from a database.
  */
 public class AdmitBookStoreDAO {
 
-    private Connection con;
+    private EntityManagerFactory emf;
 
-    /**
-     * Constructs a new {@code AdmitBookStoreDAO} and establishes a connection to the database.
-     */
     public AdmitBookStoreDAO() {
+        emf = Persistence.createEntityManagerFactory("BookShopPU");
+    }
+
+    public List<Book> getAllBooks() {
+        EntityManager em = emf.createEntityManager();
+
         try {
-            // Load the Driver class file
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-            System.err.println("Getting Connection!");
-            con = DriverManager.getConnection("jdbc:derby://localhost:1527/BooksDB",
-                    "user1", "password");
-
-            if (con != null) {
-                System.err.println("Got Connection!");
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            return em.createQuery("SELECT b FROM Book b", Book.class)
+                     .getResultList();
+        } finally {
+            em.close();
         }
     }
 
-    /**
-     * Retrieves all books from the database.
-     *
-     * @return a list of all books in the database
-     * @throws SQLException if a database access error occurs
-     */
-    public List<Book> getAllBooks() throws SQLException {
-        
-        Statement statement = con.createStatement();
-        ResultSet rs = null;
-        List list = new ArrayList();
-
-        rs = statement.executeQuery("SELECT * FROM USER1.TBooks");
-        while (rs.next()) {
-            System.out.println("rs has records");
-            String isbn = rs.getString(1);
-            String title = rs.getString(2);
-            String author = rs.getString(4);
-            double price = rs.getDouble(3);
-            list.add(new Book(isbn, title, author, price));
-        }
-        return list;
-    }
 }

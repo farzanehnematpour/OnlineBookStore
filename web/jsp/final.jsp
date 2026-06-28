@@ -6,18 +6,20 @@
         <title>Thank You</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
+
     <body>
+        <jsp:include page="header.jsp" />
+
         <h2>Online Bookstore</h2>
         <hr>
         <h3>Thank you for shopping with us.</h3>
-        <%
-            String message = (String) request.getAttribute("result");
-            session.invalidate();
-        %>
+
         <table>
             <tr>
-                <td><%= message%></td>
+                <td>${result}</td>
             </tr>
         </table>
+
+        <jsp:include page="footer.jsp" />
     </body>
 </html>
